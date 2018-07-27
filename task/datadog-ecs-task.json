@@ -1,59 +1,59 @@
-{
-  "containerDefinitions": [
     {
-      "name": "datadog-agent",
-      "image": "datadog/agent:latest",
-      "cpu": 10,
-      "memory": 256,
-      "essential": true,
-      "mountPoints": [
+      "containerDefinitions": [
         {
-          "containerPath": "/var/run/docker.sock",
-          "sourceVolume": "docker_sock",
-          "readOnly": true
-        },
-        {
-          "containerPath": "/host/sys/fs/cgroup",
-          "sourceVolume": "cgroup",
-          "readOnly": true
-        },
-        {
-          "containerPath": "/host/proc",
-          "sourceVolume": "proc",
-          "readOnly": true
+          "name": "datadog-agent",
+          "image": "datadog/agent:latest",
+          "cpu": 10,
+          "memory": 256,
+          "essential": true,
+          "mountPoints": [
+            {
+              "containerPath": "/var/run/docker.sock",
+              "sourceVolume": "docker_sock",
+              "readOnly": true
+            },
+            {
+              "containerPath": "/host/sys/fs/cgroup",
+              "sourceVolume": "cgroup",
+              "readOnly": true
+            },
+            {
+              "containerPath": "/host/proc",
+              "sourceVolume": "proc",
+              "readOnly": true
+            }
+          ],
+          "environment": [
+            {
+              "name": "DD_API_KEY",
+              "value": "8d5c8c6d234611e10bd856e414ee0324"
+            },
+            {
+          	  "name": "SD_BACKEND",
+	      "value": "docker"
+            }
+          ]
         }
       ],
-      "environment": [
+      "volumes": [
         {
-          "name": "DD_API_KEY",
-          "value": "8d5c8c6d234611e10bd856e414ee0324"
+          "host": {
+            "sourcePath": "/var/run/docker.sock"
+          },
+          "name": "docker_sock"
         },
         {
-      	  "name": "SD_BACKEND",
-	  "value": "docker"
+          "host": {
+            "sourcePath": "/proc/"
+          },
+          "name": "proc"
+        },
+        {
+          "host": {
+            "sourcePath": "/cgroup/"
+          },
+          "name": "cgroup"
         }
-      ]
+      ],
+      "family": "datadog-agent-task"
     }
-  ],
-  "volumes": [
-    {
-      "host": {
-        "sourcePath": "/var/run/docker.sock"
-      },
-      "name": "docker_sock"
-    },
-    {
-      "host": {
-        "sourcePath": "/proc/"
-      },
-      "name": "proc"
-    },
-    {
-      "host": {
-        "sourcePath": "/cgroup/"
-      },
-      "name": "cgroup"
-    }
-  ],
-  "family": "datadog-agent-task"
-}
