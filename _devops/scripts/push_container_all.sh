@@ -8,7 +8,7 @@ DESIRED_CONTAINERS=1
 
 
 # Build the datadog-agent container
-docker build -t datadog-agent -f Dockerfile.ecs .
+docker build -t datadog-agent -f Dockerfile-ecs .
 docker tag datadog-agent:latest 533639970857.dkr.ecr.eu-west-1.amazonaws.com/datadog-agent:latest
 
 # Push the containers to ECR
