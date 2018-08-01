@@ -54,26 +54,6 @@ read -d '' -r CREATE_TASK_JSON << EOF
         	    "value": "docker"
               }
             ],
-            "volumes": [
-              {
-                "host": {
-                  "sourcePath": "/var/run/docker.sock"
-                },
-                "name": "docker_sock"
-              },
-              {
-                "host": {
-                  "sourcePath": "/proc/"
-                },
-                "name": "proc"
-              },
-             {
-               "host": {
-                 "sourcePath": "/cgroup/"
-                 },
-                 "name": "cgroup"
-             }
-            ],
             "essential": true,
             "disableNetworking": false,
             "privileged": false,
