@@ -27,6 +27,8 @@ read -d '' -r CREATE_TASK_JSON << EOF
             "image": "533639970857.dkr.ecr.eu-west-1.amazonaws.com/datadog-agent:latest",
             "memoryReservation": 256,
             "cpu": 10,
+            
+            
             "mountPoints": [
               {
                 "containerPath": "/var/run/docker.sock",
@@ -53,6 +55,26 @@ read -d '' -r CREATE_TASK_JSON << EOF
           	    "name": "SD_BACKEND",
         	    "value": "docker"
               }
+            ],
+            "volumes": [
+              {
+                "host": {
+                  "sourcePath": "/var/run/docker.sock"
+                },
+                "name": "docker_sock"
+              },
+              {
+                "host": {
+                  "sourcePath": "/proc/"
+                },
+                "name": "proc"
+              },
+              {
+                "host": {
+                   "sourcePath": "/cgroup/"
+                },
+                "name": "cgroup"
+             }
             ],
             "essential": true,
             "disableNetworking": false,
